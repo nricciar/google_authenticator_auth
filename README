@@ -1,7 +1,6 @@
-A simple class to work with Google Authenticator from ruby
-
-can generate a secret key along with qrcode url/image and authenticate
-keys against a secret key
+A simple class to work with Google Authenticator from ruby. Can 
+generate a secret key along with qrcode url/image and generate
+one time passwords for a secret key.
 
 See Also: http://code.google.com/p/google-authenticator/
 
@@ -10,8 +9,8 @@ Generating the Secret Key
 ----------------------------------------------------
 ga = GoogleAuthenticator.new
 ga.secret_key # => "NINWS2QUIQD2LA2Z" 
-ga.qrcode_url # => "otpauth://totp/user@domain.com?secret=NINWS2QUIQD2LA2Z"
-ga.qrcode_image_url # => "https://chart.googleapis.com/chart?chs=350x350&cht=qr&choe=UTF-8&chl=otpauth://totp/user@domain.com?secret=NINWS2QUIQD2LA2Z"
+ga.qrcode_url('user@domain.com') # => "otpauth://totp/user@domain.com?secret=NINWS2QUIQD2LA2Z"
+ga.qrcode_image_url('user@domain.com') # => "https://chart.googleapis.com/chart?chs=350x350&cht=qr&choe=UTF-8&chl=otpauth://totp/user@domain.com?secret=NINWS2QUIQD2LA2Z"
 
 
 # Verifying a Key

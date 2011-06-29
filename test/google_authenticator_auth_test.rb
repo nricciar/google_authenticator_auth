@@ -8,6 +8,11 @@ class GoogleAuthenticatorAuthTest < ActiveSupport::TestCase
     assert_not_nil ga.secret_key
   end
  
+  test "should use provided secret key" do
+    ga = GoogleAuthenticator.new('NINWS2QUIQD2LA2Z')
+    assert_equal ga.secret_key, 'NINWS2QUIQD2LA2Z'
+  end
+
   test "should return three keys" do
     ga = GoogleAuthenticator.new
     assert_equal ga.get_keys.length, 3
