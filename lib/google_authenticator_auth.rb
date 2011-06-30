@@ -27,7 +27,7 @@ class GoogleAuthenticator
   # Google Charts image URL (resulting image can be scanned by
   # the Google Authenticator app to automaticly import secret key
   def qrcode_image_url(label,wh=350)
-    "https://chart.googleapis.com/chart?chs=#{wh}x#{wh}&cht=qr&choe=UTF-8&chl=" + URI.escape(qrcode_url(label))
+    "https://chart.googleapis.com/chart?chs=#{wh}x#{wh}&cht=qr&choe=UTF-8&chl=" + uri_parser.escape(qrcode_url(label))
   end
 
   # QRCode URL used to generate a QRCode that can be scanned into
@@ -59,7 +59,12 @@ class GoogleAuthenticator
     (-1..1).each do |x|
       bytes = [ now + x ].pack('>q').reverse
       hmac = OpenSSL::HMAC.digest(sha, key.to_s, bytes)
-      offset = hmac[-1] & 0x0F
+      offset = nil
+      if RUBY_VERSION > '1.9'
+        offset = hmac[-1].ord & 0x0F
+      else
+        offset = hmac[-1] & 0x0F
+      end
       hash = hmac[offset...offset + 4]
 
       code = hash.reverse.unpack('L')[0]
@@ -70,6 +75,11 @@ class GoogleAuthenticator
     end
 
     keys
+  end
+
+  protected
+  def uri_parser
+    @uri_parser ||= URI.const_defined?(:Parser) ? URI::Parser.new : URI
   end
 
 end
