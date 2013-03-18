@@ -2,7 +2,7 @@ require 'rake'
 
 spec = Gem::Specification.new do |s|
   s.name = "google_authenticator_auth"
-  s.version = "1.0.0"
+  s.version = "1.0.1"
   s.author = "David Ricciardi"
   s.email = "nricciar@gmail.com"
   s.homepage = "http://github.com/nricciar/google_authenticator_auth"
@@ -16,7 +16,8 @@ spec = Gem::Specification.new do |s|
   s.has_rdoc = false
   s.extra_rdoc_files = ["README","MIT-LICENSE"]
   s.description = %q{google authenticator auth}
-  s.add_dependency 'builder'
+  s.add_dependency 'base32'
+  s.add_development_dependency 'rake'
   s.add_development_dependency 'test-unit'
   s.add_development_dependency 'activesupport'
 end
