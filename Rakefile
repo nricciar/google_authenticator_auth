@@ -1,4 +1,3 @@
-require 'rake/dsl_definition'
 require 'rake'
 
 require 'bundler'
