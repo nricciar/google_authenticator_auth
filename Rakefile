@@ -1,3 +1,4 @@
+require 'rake/dsl_definition'
 require 'rake'
 require 'rake/testtask'
 require 'rdoc/task'
