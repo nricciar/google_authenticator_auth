@@ -10,7 +10,15 @@ require 'rubygems'
 require 'base32'
 require 'openssl'
 require 'uri'
-require 'SecureRandom'
+
+if RUBY_VERSION >= '1.8.7'
+	require 'SecureRandom'
+else
+	$stderr.puts 'google_authenticator_auth  Warning: Using rand(). This function is not suitable for cryptographic applications.'
+	class SecureRandom  
+		def self.random_number(val) rand(val)  end 
+	end
+end
 
 class GoogleAuthenticator
 
