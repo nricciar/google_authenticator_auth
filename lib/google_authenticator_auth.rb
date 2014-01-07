@@ -12,7 +12,7 @@ require 'openssl'
 require 'uri'
 
 if RUBY_VERSION >= '1.8.7'
-	require 'SecureRandom'
+	require 'securerandom'
 else
 	$stderr.puts 'google_authenticator_auth  Warning: Using rand(). This function is not suitable for cryptographic applications.'
 	class SecureRandom  
