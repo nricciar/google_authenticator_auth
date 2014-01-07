@@ -11,6 +11,15 @@ require 'base32'
 require 'openssl'
 require 'uri'
 
+if RUBY_VERSION >= '1.8.7'
+	require 'SecureRandom'
+else
+	$stderr.puts 'google_authenticator_auth  Warning: Using rand(). This function is not suitable for cryptographic applications.'
+	class SecureRandom  
+		def self.random_number(val) rand(val)  end 
+	end
+end
+
 class GoogleAuthenticator
 
   # Load class with the provided secret key.  If no key is
@@ -21,7 +30,7 @@ class GoogleAuthenticator
 
   # Generate a unique secret key
   def self.generate_secret_key
-    Base32.encode( (0...10).map{(rand(255)).chr}.join )
+    Base32.encode( (0...10).map{(SecureRandom.random_number(255)).chr}.join )
   end
 
   # Google Charts image URL (resulting image can be scanned by
