@@ -15,8 +15,8 @@ if RUBY_VERSION >= '1.8.7'
 	require 'securerandom'
 else
 	$stderr.puts 'google_authenticator_auth  Warning: Using rand(). This function is not suitable for cryptographic applications.'
-	class SecureRandom  
-		def self.random_number(val) rand(val)  end 
+	class SecureRandom
+		def self.random_number(val) rand(val)  end
 	end
 end
 
@@ -24,8 +24,9 @@ class GoogleAuthenticator
 
   # Load class with the provided secret key.  If no key is
   # provided generate a new random secret key
-  def initialize(key=nil)
+  def initialize(key=nil, issuer=nil)
     @secret_key = key.nil? ? GoogleAuthenticator.generate_secret_key : key
+    @issuer     = issuer
   end
 
   # Generate a unique secret key
@@ -42,7 +43,11 @@ class GoogleAuthenticator
   # QRCode URL used to generate a QRCode that can be scanned into
   # Google Authenticator (see qrcode_image_url)
   def qrcode_url(label)
-    "otpauth://totp/#{label}?secret=#{@secret_key}"
+    if @issuer
+      "otpauth://totp/#{@issuer}:#{label}?secret=#{@secret_key}&issuer=#{@issuer}"
+    else
+      "otpauth://totp/#{label}?secret=#{@secret_key}"
+    end
   end
 
   # Current secret key
