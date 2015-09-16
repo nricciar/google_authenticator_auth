@@ -2,7 +2,7 @@ require 'rake'
 
 spec = Gem::Specification.new do |s|
   s.name = "google_authenticator_auth"
-  s.version = "1.0.1"
+  s.version = "1.1.0"
   s.author = "David Ricciardi"
   s.email = "nricciar@gmail.com"
   s.homepage = "http://github.com/nricciar/google_authenticator_auth"
